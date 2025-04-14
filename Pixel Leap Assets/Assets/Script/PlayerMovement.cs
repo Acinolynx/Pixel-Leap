@@ -7,13 +7,15 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;          //Variable for character physic
     private SpriteRenderer sprite;   //Variable for rendering a character 
     private Animator anim;           //Variable for animation
-    private bool isJumping;          //
+    private bool isJumping;          
 
     private float dirX = 0f;
     [SerializeField] private float moveSpeed = 7f;    //Variable for movement speed (SerializeField so u can change it in the editor inside unity)
     [SerializeField] private float jumpForce = 14f;   //Variable for jump power (SerializeField so u can change it in the editor inside unity)
 
     private enum MovementState { idle, running, jumping, falling } //Variable for the animation
+
+    [SerializeField] private AudioSource jumpSoundEffect;
     
     
     // Start is called before the first frame update
@@ -32,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && !isJumping)                                //code for jumping when specific key is pressed
             {
+                jumpSoundEffect.Play();
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 isJumping = true;
             }
