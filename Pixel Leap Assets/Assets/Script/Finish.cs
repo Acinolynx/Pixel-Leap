@@ -33,6 +33,16 @@ public class Finish : MonoBehaviour
 
     private void CompleteLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // Use LevelLoader to load the next scene with transition
+        if (LevelLoader.instance != null)
+        {
+            LevelLoader.instance.LoadNextLevel();
+        }
+        else
+        {
+            Debug.LogError("LevelLoader instance not found!");
+            // Fallback to direct loading if loader is missing
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }

@@ -16,7 +16,24 @@ public class LevelSelector : MonoBehaviour
     }
 
     // Update is called once per frame
+    // Removed empty Update method
+    // void Update()
+    // {
+
+    // }
+
     public void OpenScene(){
-        SceneManager.LoadScene("Lvl " + level.ToString()); // Load the scene based on the level variable
+        // Use LevelLoader to load the scene with transition
+        string sceneToLoad = "Lvl " + level.ToString();
+        if (LevelLoader.instance != null)
+        {
+            LevelLoader.instance.LoadSceneByName(sceneToLoad);
+        }
+        else
+        {
+            Debug.LogError("LevelLoader instance not found!");
+            // Fallback to direct loading if loader is missing
+            SceneManager.LoadScene(sceneToLoad);
+        }
     }
 }
